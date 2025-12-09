@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <main>
-      <h1>Real-state</h1>
+      <h1>پروژه املاک</h1>
     </main>
   );
 }
