@@ -1,7 +1,8 @@
+import DashboardSidebar from "@layout/DashboardSidebar"
 
 function DashboardLayout({children}) {
   return (
-    <div><p>sidebar</p>{children}</div>
+    <DashboardSidebar>{children}</DashboardSidebar>
   )
 }
 
