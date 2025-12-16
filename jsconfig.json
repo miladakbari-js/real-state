@@ -5,7 +5,6 @@
       "@/public/*": ["public/*"],
       "@/app/*": ["src/app/*"],
       "@utils/*": ["src/utils/*"],
-      "@models/*": ["src/models/*"],
       "@layout/*": ["src/components/layout/*"],
       "@modules/*": ["src/components/modules/*"],
       "@template/*": ["src/components/template/*"],
