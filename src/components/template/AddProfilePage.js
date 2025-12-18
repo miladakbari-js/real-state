@@ -1,6 +1,8 @@
 "use client";
 
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import styles from "@template/AddProfilePage.module.css";
 import TextInput from "@modules/TextInput";
 import RadioList from "@modules/RadioList";
@@ -21,19 +23,21 @@ function AddProfilePage() {
     amenities: [],
   });
 
+  const [loading, setLoading] = useState(false);
+
   const submitHandler = async () => {
-    console.log(profileData);
+    setLoading(true);
     const res = await fetch("/api/profile", {
       method: "POST",
       body: JSON.stringify(profileData),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-
+    setLoading(false);
     if (data.error) {
-      console.log(data);
+      toast.error(data.error);
     } else {
-      console.log("success", data);
+      toast.success(data.message);
     }
   };
   return (
@@ -93,9 +97,20 @@ function AddProfilePage() {
         profileData={profileData}
         setProfileData={setProfileData}
       />
-      <button className={styles.submit} onClick={submitHandler}>
-        ثبت آگهی
-      </button>
+      <Toaster />
+      {loading ? (
+        <ThreeDots
+          color="#304ffe"
+          ariaLabel="three-dots-loading"
+          visible={true}
+          wrapperStyle={{ margin: "auto" }}
+          height={45}
+        />
+      ) : (
+        <button className={styles.submit} onClick={submitHandler}>
+          ثبت آگهی
+        </button>
+      )}
     </div>
   );
 }
