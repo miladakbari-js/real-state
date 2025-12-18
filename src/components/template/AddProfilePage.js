@@ -21,9 +21,21 @@ function AddProfilePage() {
     amenities: [],
   });
 
-  const submitHandler = ()=>{
+  const submitHandler = async () => {
     console.log(profileData);
-  }
+    const res = await fetch("/api/profile", {
+      method: "POST",
+      body: JSON.stringify(profileData),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+
+    if (data.error) {
+      console.log(data);
+    } else {
+      console.log("success", data);
+    }
+  };
   return (
     <div className={styles.container}>
       <h3>ثبت آگهی</h3>
@@ -39,6 +51,12 @@ function AddProfilePage() {
         profileData={profileData}
         setProfileData={setProfileData}
         textarea={true}
+      />
+      <TextInput
+        title="آدرس"
+        name="location"
+        profileData={profileData}
+        setProfileData={setProfileData}
       />
       <TextInput
         title="شماره تماس"
@@ -58,11 +76,26 @@ function AddProfilePage() {
         profileData={profileData}
         setProfileData={setProfileData}
       />
-      <RadioList profileData={profileData} setProfileData={setProfileData}/>
-      <TextList title="امکانات رفاهی" profileData={profileData} setProfileData={setProfileData} type="amenities"/>
-      <TextList title=" قوانین" profileData={profileData} setProfileData={setProfileData} type="rules"/>
-      <CustomDatePicker profileData={profileData} setProfileData={setProfileData}/>
-      <button className={styles.submit} onClick={submitHandler}>ثبت آگهی</button>
+      <RadioList profileData={profileData} setProfileData={setProfileData} />
+      <TextList
+        title="امکانات رفاهی"
+        profileData={profileData}
+        setProfileData={setProfileData}
+        type="amenities"
+      />
+      <TextList
+        title=" قوانین"
+        profileData={profileData}
+        setProfileData={setProfileData}
+        type="rules"
+      />
+      <CustomDatePicker
+        profileData={profileData}
+        setProfileData={setProfileData}
+      />
+      <button className={styles.submit} onClick={submitHandler}>
+        ثبت آگهی
+      </button>
     </div>
   );
 }

@@ -24,14 +24,16 @@ export async function POST(req) {
 
     //user Authentication
     const session = await getServerSession(req);
+    console.log(session);
     if (!session) {
       return NextResponse.json(
-        { error: "لطفا ابتدا وارد حساب کاربری خودشود" },
+        { error: "لطفا ابتدا وارد حساب کاربری خود شوید" },
         { status: 401 }
       );
     }
 
-    const user = User.findOne({ email: session.user.email });
+    const user = await User.findOne({ email: session.user.email });
+    console.log(user);
     if (!user) {
       return NextResponse.json(
         { error: "حساب کاربری یافت نشد" },
@@ -39,7 +41,7 @@ export async function POST(req) {
       );
     }
 
-    //Valid information
+    // Valid information
     if (
       !title ||
       !description ||
@@ -66,11 +68,12 @@ export async function POST(req) {
       constructionDate,
       amenities,
       rules,
+      category,
       price: +price,
       userId: new Types.ObjectId(user._id),
     });
-
     console.log(newProfile);
+
     return NextResponse.json(
       { message: "آگهی جدید اضافه شد" },
       { status: 201 }
