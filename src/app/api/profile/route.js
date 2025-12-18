@@ -24,7 +24,6 @@ export async function POST(req) {
 
     //user Authentication
     const session = await getServerSession(req);
-    console.log(session);
     if (!session) {
       return NextResponse.json(
         { error: "لطفا ابتدا وارد حساب کاربری خود شوید" },
@@ -33,7 +32,6 @@ export async function POST(req) {
     }
 
     const user = await User.findOne({ email: session.user.email });
-    console.log(user);
     if (!user) {
       return NextResponse.json(
         { error: "حساب کاربری یافت نشد" },

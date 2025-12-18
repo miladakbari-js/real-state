@@ -6,7 +6,7 @@ import styles from "@template/SignupPage.module.css";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { ThreeDots } from "react-loader-spinner";
+import Loader from "@modules/Loader";
 
 function SigninPage() {
   const [email, setEmail] = useState("");
@@ -50,12 +50,7 @@ function SigninPage() {
         />
 
         {loading ? (
-          <ThreeDots
-            color="#304ffe"
-            height={45}
-            ariaLabel="three-donts-loading"
-            wrapperStyle={{ margin: "auto" }}
-          />
+          <Loader/>
         ) : (
           <button onClick={signinHandler}>ورود</button>
         )}
