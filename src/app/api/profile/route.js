@@ -1,6 +1,8 @@
-import connectDb from "@utils/connectDB";
+import { Types } from "mongoose";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import connectDb from "@utils/connectDB";
+import Profile from "src/models/Profile";
 import User from "src/models/User";
 
 export async function POST(req) {
@@ -36,6 +38,43 @@ export async function POST(req) {
         { status: 404 }
       );
     }
+
+    //Valid information
+    if (
+      !title ||
+      !description ||
+      !location ||
+      !phone ||
+      !price ||
+      !realState ||
+      !constructionDate ||
+      !category
+    ) {
+      return NextResponse.json(
+        { error: "لطفا اطلاعات معتبر وارد کنید" },
+        { status: 400 }
+      );
+    }
+
+    //create Profile Ads
+    const newProfile = await Profile.create({
+      title,
+      description,
+      location,
+      phone,
+      realState,
+      constructionDate,
+      amenities,
+      rules,
+      price: +price,
+      userId: new Types.ObjectId(user._id),
+    });
+
+    console.log(newProfile);
+    return NextResponse.json(
+      { message: "آگهی جدید اضافه شد" },
+      { status: 201 }
+    );
   } catch (err) {
     console.log(err);
     return NextResponse.json(
