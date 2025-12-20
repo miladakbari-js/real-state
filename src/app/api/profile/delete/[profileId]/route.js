@@ -1,4 +1,3 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import connectDb from "@utils/connectDB";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
@@ -10,7 +9,7 @@ export async function DELETE(req, context) {
     await connectDb();
     const id = context.params.profileId;
 
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(req);
     if (!session) {
       return NextResponse.json(
         { error: "لطفا ابتدا وارد حساب کاربری خود شوید" },
