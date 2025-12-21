@@ -8,6 +8,7 @@ import RadioList from "@modules/RadioList";
 import TextList from "@modules/TextList";
 import CustomDatePicker from "@modules/CustomDatePicker";
 import Loader from "@modules/Loader";
+import { useRouter } from "next/navigation";
 
 function AddProfilePage({ data }) {
   const [profileData, setProfileData] = useState({
@@ -24,6 +25,7 @@ function AddProfilePage({ data }) {
   });
 
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const submitHandler = async () => {
     setLoading(true);
@@ -38,14 +40,30 @@ function AddProfilePage({ data }) {
       toast.error(data.error);
     } else {
       toast.success(data.message);
+      router.refresh();
     }
   };
 
-  useEffect(()=>{
-    if(data) setProfileData(data)
-  },[])
+  useEffect(() => {
+    if (data) setProfileData(data);
+  }, []);
 
-  const editHandler = ()=>{}
+  const editHandler = async () => {
+    setLoading(true);
+    const res = await fetch("/api/profile", {
+      method: "PATCH",
+      body: JSON.stringify(profileData),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    setLoading(false);
+    if (!data) {
+      toast.error(data.error);
+    } else {
+      toast.success(data.message);
+      router.refresh();
+    }
+  };
   return (
     <div className={styles.container}>
       <h3>{data ? "ویرایش آگهی" : "ثبت آگهی"}</h3>

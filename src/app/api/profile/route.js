@@ -144,20 +144,20 @@ export async function PATCH(req) {
       );
     }
 
-    Profile.title = title;
-    Profile.description = description;
-    Profile.location = location;
-    Profile.phone = phone;
-    Profile.price = price;
-    Profile.realState = realState;
-    Profile.constructionDate = constructionDate;
-    Profile.category = category;
-    Profile.amenities = amenities;
-    Profile.rules = rules;
-    Profile.save();
+    profile.title = title;
+    profile.description = description;
+    profile.location = location;
+    profile.phone = phone;
+    profile.price = price;
+    profile.realState = realState;
+    profile.constructionDate = constructionDate;
+    profile.category = category;
+    profile.amenities = amenities;
+    profile.rules = rules;
+    profile.save();
 
     return NextResponse.json(
-      { message: "آگهس با موفقیت ویرایش شد" },
+      { message: "آگهی با موفقیت ویرایش شد" },
       { status: 200 }
     );
   } catch (err) {
