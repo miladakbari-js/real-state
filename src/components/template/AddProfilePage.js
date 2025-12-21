@@ -1,7 +1,7 @@
 "use client";
 
 import toast, { Toaster } from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "@template/AddProfilePage.module.css";
 import TextInput from "@modules/TextInput";
 import RadioList from "@modules/RadioList";
@@ -9,7 +9,7 @@ import TextList from "@modules/TextList";
 import CustomDatePicker from "@modules/CustomDatePicker";
 import Loader from "@modules/Loader";
 
-function AddProfilePage() {
+function AddProfilePage({ data }) {
   const [profileData, setProfileData] = useState({
     title: "",
     description: "",
@@ -40,9 +40,15 @@ function AddProfilePage() {
       toast.success(data.message);
     }
   };
+
+  useEffect(()=>{
+    if(data) setProfileData(data)
+  },[])
+
+  const editHandler = ()=>{}
   return (
     <div className={styles.container}>
-      <h3>ثبت آگهی</h3>
+      <h3>{data ? "ویرایش آگهی" : "ثبت آگهی"}</h3>
       <TextInput
         title="عنوان آگهی"
         name="title"
@@ -99,7 +105,11 @@ function AddProfilePage() {
       />
       <Toaster />
       {loading ? (
-      <Loader/>
+        <Loader />
+      ) : data ? (
+        <button className={styles.submit} onClick={editHandler}>
+          ویرایش آگهی
+        </button>
       ) : (
         <button className={styles.submit} onClick={submitHandler}>
           ثبت آگهی
