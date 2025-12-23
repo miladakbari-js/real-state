@@ -16,7 +16,8 @@ function Header() {
             <Link href="/">صفحه اصلی</Link>
           </li>
           <li>
-            <Link href="/but-residentials">آگهی ها</Link>
+            <Link href="/buy-residential">آگهی ها</Link>
+           
           </li>
         </ul>
       </div>

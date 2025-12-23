@@ -1,9 +1,23 @@
-import styles from "@template/BuyResidentialsPage.module.css"
+import Card from "@modules/Card";
+import SideBar from "@modules/SideBar";
+import styles from "@template/BuyResidentialsPage.module.css";
 
-function BuyResidentialsPage() {
+function BuyResidentialsPage({ data }) {
   return (
-    <div>BuyResidentialsPage</div>
-  )
+    <div className={styles.container}>
+      <div className={styles.sidebar}>
+        <SideBar />
+      </div>
+      <div className={styles.main}>
+        {data.length ? null : (
+          <p className={styles.text}>هیچ آگهی ثبت نشده است</p>
+        )}
+        {data.map((profile) => (
+          <Card key={profile._id} data={profile} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default BuyResidentialsPage
+export default BuyResidentialsPage;
