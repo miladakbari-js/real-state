@@ -1,14 +1,9 @@
-import styles from "@modules/Sidebar.module.css";
 import Link from "next/link";
+import styles from "@modules/Sidebar.module.css";
 import { HiFilter } from "react-icons/hi";
+import { categories } from "@/constants/strings";
 
 function SideBar() {
-  const queries = [
-    { villa: "ویلا" },
-    { apartment: "آپارتمان" },
-    { office: "دفتر" },
-    { store: "مغازه" },
-  ];
   return (
     <div className={styles.container}>
       <p>
@@ -17,13 +12,15 @@ function SideBar() {
       </p>
       <Link href="/buy-residential">همه</Link>
 
-      {queries.map((query) => (
+      {Object.keys(categories).map((i) => (
         <Link
           href={{
             pathname: "/buy-residential",
-            query: { category: Object.keys(query) },
+            query: { category: i },
           }}
-        >{Object.values(query)}</Link>
+        >
+          {categories[i]}
+        </Link>
       ))}
     </div>
   );
