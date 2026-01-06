@@ -5,6 +5,11 @@ import { redirect } from "next/navigation";
 import connectDb from "@utils/connectDB";
 import User from "src/models/User";
 
+export const metadata = {
+  title: "  پنل کاربری  | پروژه املاک ",
+  
+};
+
 async function DashboardLayout({ children  }) {
   const session = await getServerSession(authOptions);
   if (!session) redirect("/signin");

@@ -7,6 +7,11 @@ import DashboardSidebar from "@layout/DashboardSidebar";
 import AdminPage from "@template/AdminPage";
 import Profile from "src/models/Profile";
 
+export const metadata = {
+  title: "  پنل ادمیـن  | پروژه املاک ",
+  
+};
+
 async function Admin() {
   await connectDb();
   const session = await getServerSession(authOptions);
