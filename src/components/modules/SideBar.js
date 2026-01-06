@@ -14,6 +14,7 @@ function SideBar() {
 
       {Object.keys(categories).map((i) => (
         <Link
+        key={i._id}
           href={{
             pathname: "/buy-residential",
             query: { category: i },
