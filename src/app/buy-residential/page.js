@@ -1,7 +1,7 @@
 import BuyResidentialsPage from "@template/BuyResidentialsPage";
 
 async function BuyResidentials({ searchParams }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/profiles`, {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/profiles`, {
     cache: "no-store",
   });
   const data = await res.json();
